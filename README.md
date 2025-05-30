@@ -16,3 +16,4 @@ Para compilar e executar ficheiros `.c`, pode usar um compilador como o `gcc`:
 ```bash
 gcc nome_do_ficheiro.c -o programa
 ./programa
+
