@@ -1,0 +1,54 @@
+Nota:
+Este ficheiro é a cópia do enunciado do 1º teste online para a cadeira de Programação Imperativa. Devido ao processo de cópia e colagem, poderão faltar palavras, letras, fórmulas ou cálculos em algumas partes do texto.
+
+Pergunta 1
+
+Considere o seguinte conjunto de variáveis para representar a posição e a velocidade de um robot num referencial cartesiano.
+(Consider the following set of variables to represent the position and velocity of a robot in a Cartesian reference frame.)
+
+long x, y;
+int v;
+char d;
+
+As variáveis x e y representam, respetivamente, os valores de x e de y no referencial; a variável v a velocidade; e a variável d a direção (podendo ter os valores 'n', 's', 'e', 'w' para representar, respetivamente, as direções "norte", "sul", "este", e "oeste").
+(The variables x and y represent, respectively, the values of x and y in the reference frame; the variable v the speed; and the variable d the direction (it can have the values 'n', 's', 'e', 'w' to represent, respectively, the directions “north”, “south”, “east”, and “west”).)
+
+Considere ainda que após cada segundo int t desde o início da execução do robot o seu estado é atualizado da seguinte forma:
+Also consider that after every second int t since the start of the robot's execution, its state is updated as follows:
+
+if (t % 3 == 0 && t % 5 == 0) {
+ if (d == 'n')
+  d = 'e';
+ else if (d == 'e')
+  d = 's';
+ else if (d == 's')
+  d = 'w';
+ else
+  d = 'n';
+} else if (t % 3 == 0)
+ v += 2;
+else if (t % 5 == 0)
+ v -= 1;
+else {
+ if (d == 'n')
+  y += v;
+ else if (d == 'e')
+  x += v;
+ else if (d == 's')
+  y -= v;
+ else
+  x -= v;
+}
+
+Por exemplo, assumindo que o robot começa na origem do referencial (x = y = 0) com velocidade 1 (v = 1) e virado para norte (d = 'n'), após quatro segundos, encontrar-se-á na posição (0, 5), com velocidade 3, e ainda virado para norte: após o segundo 1, move-se uma unidade para norte; repete o mesmo movimento após o segundo 2; após o segundo 3, a sua velocidade é atualizada para 3; e, finalmente, após o segundo 4, move-se 3 unidades para norte.
+For example, assuming that the robot starts at the origin of the reference frame (x = y = 0) with speed 1 (v = 1) and facing north (d = 'n'), after four seconds it will find itself at position (0, 5), with speed 3, and still facing north: after second 1, it moves one unit north; it repeats the same movement after second 2; after second 3, its speed is updated to 3; and finally, after second 4, it moves 3 units north.
+
+Pergunta 1
+Assumindo os seguintes valores iniciais para a posição e velocidade do robot, qual o valor da componente x da sua posição ao fim de 10000 segundos? (Assuming the following initial values for the robot's position and speed, what is the value of the x component of its position after 10000 seconds?)
+x = 28;
+y = 2;
+d = 's';
+v = 10;
+
+Pergunta 2
+Qual foi a maior distância percorrida continuamente numa só direção? (What was the longest distance traveled continuously in one direction?)

@@ -1,0 +1,42 @@
+Nota:
+Este ficheiro é a cópia do enunciado do 3º teste online para a cadeira de Programação Imperativa. Devido ao processo de cópia e colagem, poderão faltar palavras, letras, fórmulas ou cálculos em algumas partes do texto.
+
+Considere a seguinte estrutura para representar um aluno:
+
+typedef struct aluno {
+  char *nome;
+  int nr;
+  int nota;
+} Aluno;
+Uma turma de estudantes é representada da seguinte forma:
+typedef struct cel {
+  Aluno aluno;
+  struct cel *prox;
+} *Turma;
+
+Complete a definição da seguinte função, que adiciona um novo aluno (caracterizado por nome, nr e nota) a uma turma ordenada por ordem crescente da nota dos alunos. A função retorna 1 em caso de erro e 0 em caso de sucesso:
+
+int adicionaAluno(Turma *t, char *nome, int nr, int nota) {
+ Aluno novo_aluno;
+ novo_aluno.nome = malloc(sizeof(char) * (Espaço em branco 1));
+ if (novo_aluno.nome == NULL) {
+  return 1; 
+ }
+ strcpy(novo_aluno.nome, nome); 
+ novo_aluno.nr = nr;
+ novo_aluno.nota = nota;
+ struct cel *nova_cel = malloc(sizeof(struct cel)); 
+ if (nova_cel == NULL) {
+  free(Espaço em branco 2);
+  return 1; 
+ }
+ nova_cel->aluno = novo_aluno; 
+ 
+ while (*t != NULL && Espaço em branco 3) { 
+  t = &((*t)->prox);
+ }
+ 
+ nova_cel->prox = Espaço em branco 4;
+ *t = nova_cel;
+ return 0; 
+}
