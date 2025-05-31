@@ -75,3 +75,4 @@ int main(void) {
     return 0;
 }
 
+// Resultado final: 2/2
