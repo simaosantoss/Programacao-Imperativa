@@ -114,3 +114,5 @@ int main() {
 printf("Número de produtos que contêm 'Farinha' e 'Leite' e têm preço abaixo da média: %d\n", count);
     return 0;
 }
+
+// Resultado final: 2/2
