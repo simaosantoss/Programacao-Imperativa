@@ -1,6 +1,6 @@
 # Imperative-Programming
 
-This repository contains all the material related to the Imperative Programming course (1st year, 2nd semester) of the Computer Engineering degree at the University of Minho, academic year 2024/25.
+This repository contains all the material related to the Imperative Programming course (1st year, 2nd semester) of the Software Engineering degree at the University of Minho, academic year 2024/25.
 
 ## 📄 Contents
 
