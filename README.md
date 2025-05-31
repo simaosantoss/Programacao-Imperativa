@@ -1,19 +1,18 @@
-# Programacao-Imperativa
+# Imperative-Programming
 
-Este repositório contém todo o material relacionado com a cadeira de Programação Imperativa, (1º ano, 2º semestre) da Licenciatura em Engenharia Informática da Universidade do Minho, referente ao ano letivo 2024/25.
+This repository contains all the material related to the Imperative Programming course (1st year, 2nd semester) of the Computer Engineering degree at the University of Minho, academic year 2024/25.
 
-## 📄 Conteúdo
+## 📄 Contents
 
-- Todas as fichas com as respetivas resoluções  
-- Enunciados dos três testes online, acompanhados das suas resoluções  
-- As duas partes das 50 questões propostas, com as respetivas soluções (total de 100 questões)  
-- Resoluções de alguns testes e exames de anos anteriores  
+- All worksheets with their respective solutions  
+- Statements of the three online tests, along with their solutions  
+- Both parts of the set of 50 exercises provided by the course, with corresponding solutions (total of 100 exercises)  
+- Solutions to some past tests and exams  
 
-## ⚙️ Como usar
+## ⚙️ How to use
 
-Para compilar e executar ficheiros `.c`, pode usar um compilador como o `gcc`:
+To compile and run `.c` files, you can use a compiler like `gcc`:
 
 ```bash
-gcc nome_do_ficheiro.c -o programa
-./programa
-
+gcc filename.c -o program
+./program
