@@ -90,84 +90,99 @@ int duplicaVogais (char *s)
 
 // Exercicio 2.1
 
-int ordenado(int v[], int N) {
-    int i;
+int ordenado (int v[], int N)
+{
+    int i = 0;
+
     for (i = 0; i < N-1; i++)
+    {
         if (v[i] > v[i+1])
             return 0;
+    }
     return 1;
 }
 
 
 // Exercicio 2.2 
 
-void merge (int a[], int na, int b[], int nb, int r[]) {
-    int i , j , k;
-    i = 0;
-    j = 0;
-    k = 0;
+void merge (int a[], int na, int b[], int nb, int r[])
+{
+    int i = 0, j = 0, k = 0;
 
-    while (i < na && j < nb) {
-        if (a[i] <= b[j]) {
-            r[k] = a[i];
-            i++;
-        } 
-        else {
-            r[k] = b[j];
-            j++;
-        }
-        k++;
+    while (i < na && j < nb)
+    {
+        if (a[i] <= b[j])
+            r[k++] = a[i++];
+        else
+            r[k++] = b[j++];
     }
 
-    while (i < na) {
-        r[k] = a[i];
-        i++;
-        k++;
-    }
+    while (i < na)
+        r[k++] = a[i++];
 
-    while (j < nb) {
-        r[k] = b[j];
-        j++;
-        k++;
-    }
+    while (j < nb)
+        r[k++] = b[j++];
 }
 
 // Exercicio 2.3 
 
 // com array auxiliar (1)
 
-int partition1 (int v[], int N, int x) {
-    int i , m , M;
-    M = N - 1;
+int partition1 (int v[], int N, int x)
+{
+    int i = 0, j = 0, count = 0;
     int aux[N];
-    
-    while (i < N)
-        if (v[i] <= x) aux[m++] = v[i++];
-        else aux[M--] = v[i++];
 
-    for (i = 0 ; i < N ; i++) v[i] = aux[i]; // ou 'memcpy (v , aux , n * sizeof(int))'
-    return m;
+    for (i = 0; i < N; i++)
+    {
+        if (v[i] <= x)
+        {
+            aux[j] = v[i];
+            j++;
+            count++;
+        }
+    }
+
+    for (i = 0; i < N; i++)
+    {
+        if (v[i] > x)
+        {
+            aux[j] = v[i];
+            j++;
+        }
+    }
+
+    for (i = 0; i < N; i++)
+    {
+        v[i] = aux[i];
+    }
+
+    return count;
 }
 
 // sem array auxiliar (2)
 
-void swap(int *a, int *b) {
-    int temp = *a;
+void swap (int *a, int *b)
+{
+    int tmp = *a;
     *a = *b;
-    *b = temp;
+    *b = tmp;
 }
 
-int partition2(int v[], int N, int x) {
-    int i, m;
-    m = 0;
+int partition2(int v[], int N, int x) 
+{
+    int i, m = 0;
 
-    for (i = 0; i < N; i++) {
-        if (v[i] <= x) {
-            swap(&v[i], &v[m]);
+    for (i = 0; i < N; i++)
+    {
+        if (v[i] < x)
+        {
+            swap (&v[i], &v[m]);
             m++;
         }
     }
 
     return m;
 }
+
 
