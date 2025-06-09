@@ -2,77 +2,110 @@
 
 /*--------------------------------------- Ficha 7 ----------------------------------------*/
 
-typedef struct celula {
-char *palavra;
-int ocorr;
-struct celula * prox;
+typedef struct celula
+{
+    char *palavra;
+    int ocorr;
+    struct celula * prox;
 } * Palavras;
 
 // Exercicio 1
-void libertaLista (Palavras l) {
+void libertaLista (Palavras l)
+{
     Palavras p;
 
-    while (l != NULL) {
-        p = l;
-        l = l->prox;
-        free(p->palavra);
-        free(p);
-    }
+    while (l != NULL)
+    {
+        p = l->prox;
+        free(l->palavra);
+        free(l);
+        l = p;
+    } 
 }
 
 // Exercicio 2
-int quantasP (Palavras l) {
+int quantasP (Palavras l)
+{
     int conta = 0;
 
-    for (; l != NULL ; l = l->prox)
+    while (l != NULL)
+    {
         conta++;
+        l = l->prox;
+    }
 
     return conta;
 }
 
 // Exercicio 3
-void listaPal (Palavras l) {
-    for (; l != NULL ; l = l->prox)
-        printf ("%s %d\n", l->palavra, l->ocorr);
+void listaPal (Palavras l)
+{
+    while (l != NULL)
+    {
+        printf("%s, %d\n", l->palavra, l->ocorr);
+        l = l->prox;
+    }
 }
 
-// Exercicio 5
-Palavras acrescentaInicio (Palavras l, char *p) {
-    Palavras nova = malloc(sizeof(struct celula));
-    nova->palavra = malloc(strlen(p) + 1);
-    strcpy(nova->palavra, p);
-    nova -> ocorr = 1;
-    nova -> prox = l;
-    return nova;
-}
-
-// Exercicio 6
-Palavras acrescentaFim (Palavras l, char *p) {
-    Palavras nova = malloc(sizeof(struct celula));
-    nova->palavra = malloc(strlen(p) + 1);
-    strcpy(nova->palavra, p);
-    nova -> ocorr = 1;
-    nova -> prox = NULL;
+// Exercicio 4
+char * ultima (Palavras l) 
+{
+    if (l == NULL)
+        return NULL;
 
     while (l->prox != NULL)
         l = l->prox;
-    l->prox = nova;
+        
+    return l->palavra;
+}
+
+// Exercicio 5
+Palavras acrescentaInicio (Palavras l, char *p) 
+{
+    Palavras novo = malloc(sizeof(struct celula));
+    novo->palavra = malloc(strlen(p) + 1);
+    strcpy(novo->palavra, p);
+    novo->ocorr = 1;
+    novo->prox = l;
+
+    return novo;
+}
+
+
+// Exercicio 6
+Palavras acrescentaFim (Palavras l, char *p)
+{
+    Palavras novo = malloc(sizeof(struct celula));
+    novo->palavra = malloc(strlen(p) + 1);
+    strcpy(novo->palavra, p);
+    novo->ocorr = 1;
+    novo->prox = l;
+
+    while (l->prox != NULL)
+        l = l->prox;
+
+    l->prox = novo;
 
     return l;
 }
 
 // Exercicio 7
-Palavras acrescenta (Palavras l, char *p) {
+Palavras acrescenta (Palavras l, char *p) 
+{    
     Palavras pt = l;
 
-    while (pt != NULL && strcmp(pt->palavra, p) != 0)
+    while (pt != NULL)
+    {
+        if (strcmp(pt->palavra, p) == 0)
+            {
+            pt->ocorr++;
+            return l;
+            }
+
         pt = pt->prox;
-
-    if (pt != NULL)
-        pt ->ocorr++;
-
-    else
-        l = acrescentaInicio(l, p);
+    }
+ 
+    l = acrescentaInicio(l, p);
 
     return l;
 }

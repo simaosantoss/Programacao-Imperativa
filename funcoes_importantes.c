@@ -74,3 +74,26 @@ void swap (int *a, int *b)
     *a = *b;
     *b = tmp;
 }
+
+// binarySearch (procura eficiente num array)
+
+int binarySearch(int array[], int tamanho, int valor) {
+    int inicio = 0;
+    int fim = tamanho - 1;
+
+    while (inicio <= fim) {
+        int meio = (inicio + fim) / 2;
+
+        if (array[meio] == valor) {
+            return meio; // Valor encontrado
+        }
+        else if (array[meio] < valor) {
+            inicio = meio + 1; // Procurar na metade direita
+        }
+        else {
+            fim = meio - 1; // Procurar na metade esquerda
+        }
+    }
+
+    return -1; // Valor não encontrado
+}
