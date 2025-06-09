@@ -1,59 +1,85 @@
 #include <stdio.h> 
 
-
 /*--------------------------------------- Ficha 8 ----------------------------------------*/
 
-typedef struct slist {
-int valor;
-struct slist * prox;
+typedef struct slist 
+{
+    int valor;
+    struct slist * prox;
 } * LInt;
-LInt newLInt (int x, LInt xs) {
-LInt r = malloc (sizeof(struct slist));
-if (r!=NULL) {
-r->valor = x; r->prox = xs;
-}
-return r;
+
+LInt newLInt (int x, LInt xs) 
+{
+    LInt r = malloc (sizeof(struct slist));
+        if (r!=NULL) 
+        {
+            r->valor = x; r->prox = xs;
+        }
+
+    return r;
 }
 
-typedef LInt Stack;
 
 // Exercicio 1
 
-void initStack (Stack *s) {
+typedef LInt Stack;
+
+// a)
+void initStack (Stack *s)
+{
     *s = NULL;
 }
 
-int SisEmpty (Stack s) {
-    if  (s == NULL) return 1;
-    else return 0;
+// b)
+int SisEmpty (Stack s)
+{
+    if (s == NULL)
+        return 1;
+
+    else 
+        return 0;
 }
 
-int push (Stack *s, int x) {
-    Stack r;
+// c)
+int push (Stack *s, int x)
+{
+    if (*s == NULL)
+    {
+        Stack novo = malloc(sizeof(struct slist));
+        if (novo == NULL) return -1;
+        novo->valor = x;
+        novo->prox = NULL;
+        *s = novo;
+        return 0;
+    }
 
-    r = newLint (x, *s);
-    if (r == NULL) return 1;
-    *s = r;
-
+    Stack novo = malloc(sizeof(struct slist));
+    if (novo == NULL) return -1;
+    novo->valor = x;
+    novo->prox = *s;
+    *s = novo;
     return 0;
 }
 
-int pop (Stack *s, int *t) {
-    Stack tmp;
+// d)
+int pop (Stack *s, int *x)
+{
+    if (*s == NULL) 
+        return -1;
 
-    if (s == NULL) return 1;
-
-    *t = (*s)->valor;
-    tmp = *s;
+    *x = (*s)->valor;
+    Stack tmp = (*s);
     *s = (*s)->prox;
     free(tmp);
 
     return 0;
 }
 
-
-int top (Stack s, int *x) {
-    if (s == NULL) return 1;
+// e)
+int top (Stack s, int *x)
+{
+    if (s == NULL)
+        return -1;
 
     *x = s->valor;
 
@@ -62,7 +88,10 @@ int top (Stack s, int *x) {
 
 // Exercicio 2
 
-typedef struct {LInt inicio, fim;} Queue;
+typedef struct 
+{
+    LInt inicio,fim;
+} Queue;
 
 void initQueue (Queue *q) {
     q -> inicio = q -> fim = NULL;
