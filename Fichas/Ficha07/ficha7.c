@@ -111,15 +111,20 @@ Palavras acrescenta (Palavras l, char *p)
 }
 
 // Exercicio 8
-struct celula * maisFreq (Palavras l) {
-    int max = 0;
-    struct celula * r = NULL;
-    
-    while (l != NULL) {
-        if (l->ocorr > max) {
+struct celula * maisFreq (Palavras l) 
+{
+    int max = -1;
+    struct celula *maisF = NULL;
+
+    while (l != NULL)
+    {
+        if (l->ocorr > max)
+        {
             max = l->ocorr;
-            r = l;
+            maisF = l;
         }
         l = l->prox;
     }
+
+    return maisF;
 }
