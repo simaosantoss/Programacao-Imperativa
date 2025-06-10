@@ -3,7 +3,8 @@
 
 /*--------------------------------------- Ficha 10 ---------------------------------------*/
 
-typedef struct nodo {
+typedef struct nodo 
+{
     int valor;
     struct nodo *esq, *dir;
 } * ABin;
@@ -11,17 +12,18 @@ typedef struct nodo {
 // Exercicio 1
 
 // a)
-ABin removeMenor (ABin *a) {
-    ABin res = *a;
+ABin removeMenor (ABin *a)
+{
+    ABin res = *a; 
 
-    if (*a != NULL) {
+    if (*a == NULL)
+        return NULL;
 
-        while ((*a)->esq != NULL)
-            a = &((*a)->esq);
+    while ((*a)->esq != NULL)
+        a = &((*a)->esq);
 
-        res = *a;
-        *a = (*a)->dir;
-    }
+    res = *a;
+    (*a) = (*a)->dir;
 
     return res;
 }
@@ -59,4 +61,5 @@ int removeElem (ABin *a, int x) {
         else {
             res = removeElem(&((*a)->esq), x);
         }
+     }
 }
