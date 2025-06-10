@@ -3,47 +3,76 @@
 
 /*--------------------------------------- Ficha 9 ----------------------------------------*/
 
-typedef struct nodo {
+typedef struct nodo 
+{
 int valor;
 struct nodo *esq, *dir;
 } * ABin;
-ABin newABin (int r, ABin e, ABin d) {
+
+ABin newABin (int r, ABin e, ABin d) 
+{
 ABin a = malloc (sizeof(struct nodo));
-if (a!=NULL) {
-a->valor = r; a->esq = e; a->dir = d;
-}
+        if (a!=NULL) 
+        {
+            a->valor = r; a->esq = e; a->dir = d;
+        }
 return a;
 }
 
 // Exercicio 1
 
 // a)
-int altura (ABin a) {
-    if (a == NULL) return 0;
-    else return 1 + max(altura(a->esq) , altura(a->dir));
+int max (int a, int b)
+{
+    return (a > b) ? a : b;
 }
 
-// b)
-int nFolhas (ABin a) {
+int altura (ABin a)
+{
     if (a == NULL)
         return 0;
 
-    else if (((a->esq) == NULL) &&
-        ((a->dir) == NULL)) 
+    else
+        return 1 + max(altura(a->esq), altura(a->dir));
+}
+
+// b)
+int nFolhas (ABin a)
+{
+    if (a == NULL)
+        return 0;
+
+    if (a->esq == NULL && a->dir == NULL)
         return 1;
 
-    else return (nFolhas(a->esq) + nFolhas(a->dir));
-} 
+    return nFolhas(a->esq) + nFolhas(a->dir);
+}
+
+// c)
+ABin maisEsquerda (ABin a)
+{
+    if (a == NULL)
+        return NULL;
+
+    while (a->esq != NULL)
+        a = a->esq;
+
+    return a;
+}
 
 // d)
-void imprimeNivel (ABin a, int n) {
-    if (a != NULL) {
-        if (n == 0) printf ("%d", a->valor);
+void imprimeNivel (ABin a, int l)
+{
+    if (a == NULL)  // Se a árvore for vazia, return
+        return;
 
-    else { imprimeNivel (a->esq , n-1);
-           imprimeNivel (a->dir , n-1);
-
-        }
+    if (l == 0)
+        printf("%d ", a->valor);
+        
+    else
+    {
+        imprimeNivel (a->esq, l - 1);
+        imprimeNivel (a->dir, l - 1);
     }
 }
 
@@ -61,27 +90,24 @@ int procuraE (ABin a, int e) {
 }
 
 // extra
-int maiorFolha (ABin a) {
-    int maior;
-
-    if (((a->esq) == NULL) && 
-       ((a->dir) == NULL)) 
-       return (a->valor);
-
-    else 
-        if (a->esq == NULL)
-            return (maiorFolha(a->dir));
-
-        else if (a->dir == NULL)
-            return (maiorFolha (a->esq));
-
-        else return max(maiorFolha(a->esq) , maiorFolha (a->dir));
-
+int maiorFolha (ABin a)
+{
+    // Assume que a != NULL (árvore não vazia)
+    if (a->esq == NULL && a->dir == NULL)
+        return a->valor;  // é folha
+    else if (a->esq == NULL)
+        return maiorFolha(a->dir);  // só tem subárvore direita
+    else if (a->dir == NULL)
+        return maiorFolha(a->esq);  // só tem subárvore esquerda
+    else
+        return max(maiorFolha(a->esq), maiorFolha(a->dir));  // tem ambas
 }
 
 // extra (está nas 50 questões)
-void freeABin (ABin a) {
-    if (a != NULL) {
+void freeABin (ABin a) 
+{
+    if (a != NULL)
+    {
         freeABin(a->esq);
         freeABin(a->dir);
         free(a);
@@ -91,41 +117,77 @@ void freeABin (ABin a) {
 // Exercicio 2
 
 // f)
-struct nodo *procura (ABin a, int x) {
-    while (a != NULL && a->valor != x) {
-        if (a->valor > x) a = a->esq;
-        else a = a->dir;
+struct nodo *procura (ABin a, int x)
+{
+    if (a == NULL)
+        return NULL;
+
+    if (a->valor == x)
+        return a;
+
+    if (a->valor > x)
+        return procura (a->esq, x);
+
+    if (a->valor < x)
+        return procura (a->dir, x);
+
+    return NULL;
+}
+
+// g)
+int nivel (ABin a, int x)
+{
+    if (a == NULL)
+        return -1; // a é vazia
+
+    if (a->valor == x)
+        return 0; // o valor está no nivel 0
+
+    if (a->valor > x)
+    {
+        int resultado = nivel (a->esq, x);
+        if (resultado == -1)
+            return -1;
+        else
+            return 1 + resultado;
     }
-    return (a != NULL);
+
+    if (a->valor < x)
+    {
+        int resultado = nivel (a->dir, x);
+        if (resultado == -1)
+            return -1;
+        else
+            return 1 + resultado;
+    }
+
+    return -1;
 }
 
 // h)
-void imprimeAte (ABin a, int x) {
-    if (a != NULL) {
+void imprimeAte (ABin a, int x) 
+{
+    if (a == NULL)
+        return;
 
-        if (a->valor == x)
-            imprimeAte (a->esq, x);
 
-        else if (a->valor > x)
-            imprimeAte (a->esq, x);
+    if (a->valor == x)
+        imprimeAte (a->esq, x);
 
-        else {imprimeC (a->esq);          // imprimeC para ser mais eficiente
-              printf ("%a " , a->valor);
-              imprimeAte (a->dir, x);
-        }
-    }
-}
+    else if (a->valor > x)
+        imprimeAte (a->esq, x);
 
-void imprimeC (ABin a) {
-    if (a != NULL) {
-        imprimeC (a->esq);
-        printf ("%d", a->valor);
-        imprimeC (a->dir);
+    else
+    {
+        imprimeAte (a->esq, x);
+        printf("%d ", a->valor);
+        imprimeAte(a->dir, x);
     }
 }
 
 // extra (quantos elementos de uma árvore (de procura) são iguais a x)
-int quantos (ABin a, int e) {
+int quantos (ABin a, int e) 
+{
     if (a == NULL) return 0;
 
     if (a->valor == e) return 1 + quantos(a->esq, e) + quantos(a->dir, e);
