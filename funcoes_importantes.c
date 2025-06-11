@@ -1,6 +1,22 @@
 #include <stdio.h> 
 #include <string.h> 
 
+// iSort (dá mais pontos que um buble sort mas menos que um merge sort ou quick sort)
+
+void insertionSort(int arr[], int n) {
+    int i, key, j;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;
+
+        while (j >= 0 && arr[j] > key) { // // Adaptar o campo (ex: c[j].sup > chave.sup pu qualquer coisa que se queira ordenar).
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
 // mergeSort (sort que dá mais cotação num teste)
 
 void merge(int arr[], int left, int mid, int right) 
@@ -74,6 +90,45 @@ void swap (int *a, int *b)
     *a = *b;
     *b = tmp;
 }
+
+// Quick Sort a mais fácil de decorar entre merge e quick (dão os mesmos pontos)
+
+typedef struct {
+    int inf,sup;
+} Intervalo; // adaptada a este tipo
+
+// --- Função de PARTIÇÃO (única parte crítica a decorar) ---
+int partition(Intervalo arr[], int low, int high) {
+    int pivot = arr[(low + high) / 2].inf;  // Pivô do meio (evita pior caso)
+    // ATENÇÃO: Mudar ".inf" para o campo que se quer ordenar (ex: ".sup", ".idade", etc.)
+    
+    int i = low - 1;
+    int j = high + 1;
+
+    while (1) {
+        do { i++; } while (arr[i].inf < pivot);  // Comparação: trocar "<" para ">" se quiser decrescente
+        do { j--; } while (arr[j].inf > pivot);  // Igual aqui
+        
+        if (i >= j) return j;  // Ponto de divisão do array
+        
+        swap(&arr[i], &arr[j]);  // Troca os elementos fora de ordem
+    }
+}
+
+// --- QuickSort (recursivo) ---
+void quickSort(Intervalo arr[], int low, int high) {
+    if (low < high) {
+        int p = partition(arr, low, high);  // Obtém o pivô
+        quickSort(arr, low, p);      // Ordena a metade esquerda
+        quickSort(arr, p + 1, high); // Ordena a metade direita
+    }
+}
+
+// --- Função de ordenação final (chama o QuickSort) ---
+void ordena(Intervalo arr[], int N) {
+    quickSort(arr, 0, N - 1);  // Inicia a ordenação
+}
+
 
 // binarySearch (procura eficiente num array)
 
