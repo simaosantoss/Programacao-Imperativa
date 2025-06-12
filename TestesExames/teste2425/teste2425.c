@@ -180,3 +180,43 @@ int apagaUltimo(LInt *l, int x) {
     free(ultimoX);
     return 0;
 }
+
+// Exercicio 6
+
+typedef struct nodo {
+    int valor;
+    struct nodo *esq, *dir;
+} *ABin;
+
+int nivel (ABin a, int x) {
+
+    if (a->valor == x) 
+        return 0;
+
+    if (a->valor > x)
+        return 1 + nivel (a->esq, x);
+
+    else
+        return 1 + nivel (a->dir, x);       
+}
+
+int ancestralComum (ABin a, int x, int y) {
+    if (x < a->valor && y < a->valor)
+        return ancestralComum(a->esq, x, y);
+
+    if (x > a->valor && y > a->valor)
+        return ancestralComum(a->dir, x, y);
+
+    else
+        return a->valor;
+}
+
+int parentesco(ABin a, int x, int y) {
+    
+    if (a == NULL)
+        return -1;
+
+    int lca = ancestralComum (a, x, y);
+
+    return (nivel (a, x)) + (nivel (a, y)) - (2 * (nivel (a, lca)));
+}
