@@ -108,59 +108,59 @@ int valor;
 struct abin_nodo *esq, *dir; 
 } *ABin;
 
-int todosIguaisAux(ABin a, int n, int *valorRef, int *found) {
-    if (a == NULL) return 1;
+int todosIguaisAux(ABin a, int n, int *ref) {
+    if (a == NULL) return 0;
 
-    if (n == 0) {
-        if (!(*found)) {  
-            *valorRef = a->valor;
-            *found = 1;
-            return 1;
+    if (n == 0) { 
+        if (*ref == -1) {  
+            *ref = a->valor;
+            return 0;
+
+        } 
+        
+        else if (a->valor != *ref) {  
+            return -1;
         }
-        return (a->valor == *valorRef);
+
+        return 0;  
     }
 
-    return todosIguaisAux(a->esq, n-1, valorRef, found) &&
-           todosIguaisAux(a->dir, n-1, valorRef, found);
+    int esq = todosIguaisAux(a->esq, n - 1, ref);
+    int dir = todosIguaisAux(a->dir, n - 1, ref);
+    return (esq == -1 || dir == -1) ? -1 : 0;
 }
 
 int todosIguais(ABin a, int n) {
-    int valorRef = 0;
-    int found = 0;
-    return todosIguaisAux(a, n, &valorRef, &found);
+    int ref = -1;  
+    return todosIguaisAux(a, n, &ref);
 }
 
 // Exercício 6
 
 int calcula(char s[]) {
-    int stack[100];  
-    int sp = 0;      
-
+    int stack[100];
+    int sp = 0;
+    
     for (int i = 0; s[i] != '\0'; i++) {
-        char c = s[i];
-
-        if (isdigit(c)) {
-           
-            stack[sp++] = c - '0';
+        if (isdigit(s[i])) {
+            stack[sp++] = s[i] - '0';
         }
-        else if (c == '+' || c == '*') {
-            if (sp < 2) return -1; 
 
-            int b = stack[--sp];   
-            int a = stack[--sp];   
-            int res;
-
-            if (c == '+') res = a + b;
-            else          res = a * b;
-
-            stack[sp++] = res;  
-        }
-        else {
-            return -1;
+        else if (s[i] == '+' || s[i] == '*') {
+            if (sp < 2) return -1;
+            
+            int b = stack[--sp];  
+            int a = stack[--sp];  
+            
+            if (s[i] == '+') {
+                stack[sp++] = a + b;
+            }
+            else {
+                stack[sp++] = a * b;
+            }
         }
     }
-
-    if (sp != 1) return -1;
-
-    return stack[0];
+    
+    if (sp == 1) return stack[0];
+    return -1;
 }
