@@ -2,104 +2,103 @@
 #include <string.h> 
 #include <ctype.h>
 
-// Exercício 1
+// Exercicio 1
 
 int pesquisa(int x, int a[], int N) {
-    int low = 0, high = N - 1;
+    int low = 0;
+    int high = N - 1;
 
     while (low <= high) {
-        int mid = (low + high) / 2;
+    int mid = (low + high) / 2;
 
-        if (a[mid] == x)
-            return mid;
+    if (a[mid] == x)
+        return mid;
 
-        if (a[mid] < x)
-            low = mid + 1; 
-        else
-            high = mid - 1;   
+    if (a[mid] < x)
+        low = mid + 1;
+
+    else
+        high = mid - 1;
     }
-    return -1;               
+
+    return -1;
 }
 
-// Exercício 2
+// Exercicio 2
 
 typedef struct lint_nodo {
     int valor;
     struct lint_nodo *prox;
 } *LInt;
 
-int duplica (LInt *l) {
-    if (*l == NULL) return 0;    
+void duplicaTodos(LInt l) {
 
-    LInt curr = *l;
-    while (curr != NULL) {
+    while (l != NULL) {
         LInt novo = malloc(sizeof(struct lint_nodo));
-        if (novo == NULL) return -1;   
+        novo->valor = l->valor;
+        novo->prox = l->prox;
+        l->prox = novo;
 
-        novo->valor = curr->valor;
-        novo->prox  = curr->prox;
-        curr->prox  = novo;
-
-        curr = novo->prox;             
+        l = l->prox->prox;
     }
-    return 0;                         
 }
 
 // Exercicio 3
 
-#include <string.h>
-
 int expande(char s[]) {
-    int lenOrig = strlen(s);
-    if (lenOrig == 0) return 0;
-
-    int lenExp = 0;
-    for (int i = 0; i < lenOrig; i += 2) {
-        int n = s[i + 1] - '0';
-        lenExp += n;
+    int tamanho_final = 0;
+    int len_original = strlen(s);
+    
+    for (int i = 0; i < len_original; i += 2) {
+        int digito = s[i+1] - '0';
+        tamanho_final += digito;
     }
+    
+    s[tamanho_final] = '\0';
+    
+    int pos_destino = tamanho_final - 1;  
+    
+    for (int i = len_original - 2; i >= 0; i -= 2) {
+        char c = s[i];                  
+        int digito = s[i+1] - '0';       
+        
 
-    char aux[lenExp + 1];
-
-    int pos = 0;
-    for (int i = 0; i < lenOrig; i += 2) {
-        char c = s[i];
-        int n = s[i + 1] - '0';
-
-        for (int j = 0; j < n; j++) {
-            aux[pos++] = c;
+        for (int j = 0; j < digito; j++) {
+            s[pos_destino] = c;
+            pos_destino--;
         }
     }
-    aux[pos] = '\0';
-
-    for (int i = 0; i <= lenExp; i++) {
-        s[i] = aux[i];
-    }
-
-    return lenExp;
+    
+    return tamanho_final;
 }
 
 // Exercicio 4
 
-int fizzbuzz2(int n) {
-    int primeiraFB = -1;  
-    int ultimaB = -1;     
+int fizzbuzz(int n) {
+    int primeiro_fizzbuzz = -1;
+    int ultimo_buzz_seguinte = -1;
 
     for (int i = 0; i < n; i++) {
-        if (fizz(i) && buzz(i)) {
-            if (primeiraFB == -1)
-                primeiraFB = i;
-        }
 
-        if (buzz(i)) {
-            ultimaB = i;
+        if (fizz(i) && buzz(i)) {
+            primeiro_fizzbuzz = i;
+            break;
         }
     }
 
-    if (primeiraFB == -1 || ultimaB == -1 || ultimaB <= primeiraFB)
-        return -1;
+    if (primeiro_fizzbuzz == -1) return -1;
 
-    return ultimaB - primeiraFB - 1;  
+    for (int j = primeiro_fizzbuzz + 1; j < n; j++) {
+        if (buzz(j) && !fizz(j)) {
+            ultimo_buzz_seguinte = j;
+        }
+    }
+
+    if (ultimo_buzz_seguinte == -1) return -1;
+
+    int diferenca = ultimo_buzz_seguinte - primeiro_fizzbuzz;
+
+    return diferenca;
 }
 
 // Exercicio 5
