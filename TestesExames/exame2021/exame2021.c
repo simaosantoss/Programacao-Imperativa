@@ -90,3 +90,93 @@ void latino (int N, int m[N][N]) {
         }
     }
 }
+
+// Exercicio 4
+
+typedef struct nodo {
+     int valor;
+     struct nodo *pai, *esq, *dir;
+} *ABin;
+
+ABin maisEsquerda(ABin a) {
+    if (a == NULL) 
+        return NULL;
+
+    while (a->esq != NULL) {
+        a = a->esq;
+
+    }
+    return a;
+}
+
+ABin ancestralCorreto(ABin a) {
+    if (a == NULL) 
+        return NULL;
+
+    ABin curr = a;
+
+    while (curr->pai != NULL && curr == curr->pai->dir) {
+        curr = curr->pai;
+    }
+    
+    return curr->pai;
+}
+
+ABin next(ABin a) {
+    if (a == NULL) return NULL;
+    
+    if (a->dir != NULL) {
+        return maisEsquerda(a->dir);
+    } 
+    
+    else {
+        return ancestralCorreto(a); 
+    }
+}
+
+// Exercicio 5
+
+typedef struct palavras {
+    char *palavra;
+    int nOcorr;
+    struct palavras *esq, *dir;
+} *Palavras;
+
+int acrescentaPal(Palavras *p, char *pal) {
+    if (*p == NULL) {
+        *p = malloc(sizeof(struct palavras));
+        (*p)->palavra = strdup(pal);
+        (*p)->nOcorr = 1;
+        (*p)->esq = (*p)->dir = NULL;
+        
+        return 1;
+    }
+
+    int cmp = strcmp(pal, (*p)->palavra);
+
+    if (cmp == 0) {
+        (*p)->nOcorr++;
+    }
+
+    else if (cmp < 0) {
+        int res = acrescentaPal(&((*p)->esq), pal);
+
+        if ((*p)->esq != NULL && (*p)->esq->nOcorr > (*p)->nOcorr) {
+            rodaDireita(p); 
+        }
+
+        return res;
+    }
+
+    else {
+        int res = acrescentaPal(&((*p)->dir), pal);
+
+        if ((*p)->dir != NULL && (*p)->dir->nOcorr > (*p)->nOcorr) {
+            rodaEsquerda(p);  
+        }
+
+        return res;
+    }
+
+    return 1;
+}
