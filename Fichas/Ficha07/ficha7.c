@@ -1,21 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
 
 /*--------------------------------------- Ficha 7 ----------------------------------------*/
 
-typedef struct celula
-{
+typedef struct celula {
     char *palavra;
     int ocorr;
     struct celula * prox;
 } * Palavras;
 
 // Exercicio 1
-void libertaLista (Palavras l)
-{
+void libertaLista (Palavras l) {
     Palavras p;
 
-    while (l != NULL)
-    {
+    while (l != NULL) {
         p = l->prox;
         free(l->palavra);
         free(l);
@@ -24,12 +23,10 @@ void libertaLista (Palavras l)
 }
 
 // Exercicio 2
-int quantasP (Palavras l)
-{
+int quantasP (Palavras l) {
     int conta = 0;
 
-    while (l != NULL)
-    {
+    while (l != NULL) {
         conta++;
         l = l->prox;
     }
@@ -38,18 +35,15 @@ int quantasP (Palavras l)
 }
 
 // Exercicio 3
-void listaPal (Palavras l)
-{
-    while (l != NULL)
-    {
+void listaPal (Palavras l) {
+    while (l != NULL) {
         printf("%s, %d\n", l->palavra, l->ocorr);
         l = l->prox;
     }
 }
 
 // Exercicio 4
-char * ultima (Palavras l) 
-{
+char * ultima (Palavras l) {
     if (l == NULL)
         return NULL;
 
@@ -60,8 +54,7 @@ char * ultima (Palavras l)
 }
 
 // Exercicio 5
-Palavras acrescentaInicio (Palavras l, char *p) 
-{
+Palavras acrescentaInicio (Palavras l, char *p) {
     Palavras novo = malloc(sizeof(struct celula));
     novo->palavra = malloc(strlen(p) + 1);
     strcpy(novo->palavra, p);
@@ -73,8 +66,7 @@ Palavras acrescentaInicio (Palavras l, char *p)
 
 
 // Exercicio 6
-Palavras acrescentaFim (Palavras l, char *p)
-{
+Palavras acrescentaFim (Palavras l, char *p) {
     Palavras novo = malloc(sizeof(struct celula));
     novo->palavra = malloc(strlen(p) + 1);
     strcpy(novo->palavra, p);
@@ -90,14 +82,11 @@ Palavras acrescentaFim (Palavras l, char *p)
 }
 
 // Exercicio 7
-Palavras acrescenta (Palavras l, char *p) 
-{    
+Palavras acrescenta (Palavras l, char *p) {    
     Palavras pt = l;
 
-    while (pt != NULL)
-    {
-        if (strcmp(pt->palavra, p) == 0)
-            {
+    while (pt != NULL) {
+        if (strcmp(pt->palavra, p) == 0) {
             pt->ocorr++;
             return l;
             }
@@ -111,15 +100,12 @@ Palavras acrescenta (Palavras l, char *p)
 }
 
 // Exercicio 8
-struct celula * maisFreq (Palavras l) 
-{
+struct celula * maisFreq (Palavras l) {
     int max = -1;
     struct celula *maisF = NULL;
 
-    while (l != NULL)
-    {
-        if (l->ocorr > max)
-        {
+    while (l != NULL) {
+        if (l->ocorr > max) {
             max = l->ocorr;
             maisF = l;
         }

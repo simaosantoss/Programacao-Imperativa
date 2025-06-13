@@ -9,76 +9,11 @@ void insertionSort(int arr[], int n) {
         key = arr[i];
         j = i - 1;
 
-        while (j >= 0 && arr[j] > key) { // // Adaptar o campo (ex: c[j].sup > chave.sup pu qualquer coisa que se queira ordenar).
+        while (j >= 0 && arr[j] > key) { // // Adaptar o campo (ex: c[j].oqueeuquiser > chave.oqueeuquiser)
             arr[j + 1] = arr[j];
             j = j - 1;
         }
         arr[j + 1] = key;
-    }
-}
-
-// mergeSort (sort que dá mais cotação num teste)
-
-void merge(int arr[], int left, int mid, int right) 
-{
-    int i, j, k;
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-
-    int leftArr[n1], rightArr[n2];
-
-    for (i = 0; i < n1; i++)
-    {
-        leftArr[i] = arr[left + 1];
-    }
-    for (j = 0; j < n2; j++)
-    {
-        rightArr[j] = arr[mid + 1 + j];
-    }
-
-    i = 0;
-    j = 0; 
-    k = left;
-
-    while (i < n1 && j < n2) 
-    {
-        if (leftArr[i] < rightArr[j])
-        {
-            arr[k] = leftArr[i];
-            i++;
-        }
-        else 
-        {
-        arr[k] = rightArr[j];
-        j++;
-        }
-    }
-
-    while (i < n1) 
-    {
-        arr[k] = leftArr[i];
-        i++;
-        k++;
-    }
-
-    while (i < n2) 
-    {
-        arr[k] = leftArr[j];
-        j++;
-        k++;
-    }
-}
-
-void mergeSort(int arr[], int left, int right)
-{
-    if (left < right)
-    {
-        int mid = left - (right - left) / 2;
-
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
-
-        merge(arr, left, mid, right);
     }
 }
 
@@ -91,42 +26,44 @@ void swap (int *a, int *b)
     *b = tmp;
 }
 
-// Quick Sort a mais fácil de decorar entre merge e quick (dão os mesmos pontos)
+// Quick Sort a mais fácil de decorar entre merge e quick (dão os mesmos pontos) -> a minha preferida 
 
 typedef struct {
-    int inf,sup;
-} Intervalo; // adaptada a este tipo
+    int naoImporta, oquequeroordernar;
+} Ordena;
 
-// --- Função de PARTIÇÃO (única parte crítica a decorar) ---
-int partition(Intervalo arr[], int low, int high) {
-    int pivot = arr[(low + high) / 2].inf;  // Pivô do meio (evita pior caso)
-    // ATENÇÃO: Mudar ".inf" para o campo que se quer ordenar (ex: ".sup", ".idade", etc.)
-    
+void swap (Ordena *a, Ordena *b) {
+    Ordena tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+int partition (Ordena arr[], int low, int high) {
+    int pivot = arr[(low + high) / 2].oquequeroordernar;
+
     int i = low - 1;
     int j = high + 1;
 
     while (1) {
-        do { i++; } while (arr[i].inf < pivot);  // Comparação: trocar "<" para ">" se quiser decrescente
-        do { j--; } while (arr[j].inf > pivot);  // Igual aqui
-        
-        if (i >= j) return j;  // Ponto de divisão do array
-        
-        swap(&arr[i], &arr[j]);  // Troca os elementos fora de ordem
+        do {i++;} while (arr[i].oquequeroordernar < pivot);
+        do {j--;} while (arr[j].oquequeroordernar > pivot);
+
+        if (i >= j) return j;
+
+        swap (&arr[i], &arr[j]);
     }
 }
 
-// --- QuickSort (recursivo) ---
-void quickSort(Intervalo arr[], int low, int high) {
+void quickSort (Ordena arr[], int low, int high) {
     if (low < high) {
-        int p = partition(arr, low, high);  // Obtém o pivô
-        quickSort(arr, low, p);      // Ordena a metade esquerda
-        quickSort(arr, p + 1, high); // Ordena a metade direita
+    int p = partition (arr, low, high);
+    quickSort (arr, low, p);
+    quickSort (arr, p + 1, high);
     }
 }
 
-// --- Função de ordenação final (chama o QuickSort) ---
-void ordena(Intervalo arr[], int N) {
-    quickSort(arr, 0, N - 1);  // Inicia a ordenação
+void ordena (Ordena arr[], int N) {
+    quickSort (arr, 0, N - 1);
 }
 
 

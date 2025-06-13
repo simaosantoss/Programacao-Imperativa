@@ -1,4 +1,6 @@
-#include <stdio.h> 
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
 
 /*--------------------------------------- Ficha 5 ----------------------------------------*/
 
@@ -35,13 +37,11 @@ int nota (Aluno a)
 
 // o array deve estar ordenado 
 
-int procuraNum (int num, Aluno t[], int N)
-{
+int procuraNum (int num, Aluno t[], int N) {
     int low = 0;
     int high = N - 1;
 
-    while (low <= high)
-    {
+    while (low <= high) {
         int mid = (high + low) / 2;
 
         if (t[mid].numero == num)
@@ -59,8 +59,7 @@ int procuraNum (int num, Aluno t[], int N)
 
 // Exercicio 3
 
-void swap (Aluno *a, Aluno *b)
-{
+void swap (Aluno *a, Aluno *b) {
     Aluno tmp = *a;
     *a = *b;
     *b = tmp;
@@ -81,19 +80,16 @@ void ordenaPorNum (Aluno t[], int N) {
 
 // Exercicio 4
 
-void swapIndices (int *a, int *b)
-{
+void swapIndices (int *a, int *b) {
     int tmp = *a;
     *a = *b;
     *b = tmp;
 }
 
-void criaIndPorNum (Aluno t[], int N, int ind[]) 
-{
+void criaIndPorNum (Aluno t[], int N, int ind[])  {
     int j = 0; 
     // preencher o array com os indices 1, 2, 3, ..., N-1
-    for (int i = 0; i < N; i++)
-    {
+    for (int i = 0; i < N; i++) {
         ind[i] = i;
     }
 
@@ -107,10 +103,8 @@ void criaIndPorNum (Aluno t[], int N, int ind[])
 
 // Exercicio 5
 
-void imprimeTurma (int ind[], Aluno t[], int N)
-{
-    for (int i = 0; i < N; i++) 
-    {
+void imprimeTurma (int ind[], Aluno t[], int N) {
+    for (int i = 0; i < N; i++) {
         int idx = ind[i]; // índice real do aluno em t[]
         printf("%d - %s - %d\n", t[idx].numero, t[idx].nome, nota(t[idx]));
     }

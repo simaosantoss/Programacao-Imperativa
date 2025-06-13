@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
 #define Max 100
 
 /*--------------------------------------- Ficha 6 ----------------------------------------*/
@@ -11,25 +14,21 @@ typedef struct staticStack {
 
 // a)
 
-void SinitStack (SStack s)
-{
+void SinitStack (SStack s) {
     s->sp = 0;
 }
 
 // b) 
-int SisEmpty (SStack s)
-{
+int SisEmpty (SStack s) {
     return s->sp == 0;
 }
 
 // c)
-int Spush (SStack s, int x)
-{
+int Spush (SStack s, int x) {
     if (s->sp == Max) // sp já aponta para o máximo (stack cheia)
             return 1;
 
-    else
-    {
+    else {
         s->values[s->sp] = x;
         s->sp++; // Avança para a próxima posição
         return 0;
@@ -37,13 +36,11 @@ int Spush (SStack s, int x)
 }
 
 // d)
-int Spop (SStack s, int *x)
-{
+int Spop (SStack s, int *x) {
     if (s->sp == 0) //stack vazia
         return 1;
 
-    else
-    {
+    else {
         s->sp--;               // recua o pointer, para apontar para o topo real
         *x = s->values[s->sp]; // guarda o valor do topo (que está agora em s->sp)
         return 0;
@@ -52,13 +49,11 @@ int Spop (SStack s, int *x)
 
 // e) 
 
-int Stop (SStack s, int *x)
-{
+int Stop (SStack s, int *x) {
     if (s->sp == 0)
         return 1;
 
-    else
-    {
+    else {
         *x = s->values[s->sp - 1];
         return 0;
     }
@@ -72,28 +67,24 @@ typedef struct staticQueue {
 } QUEUE, *SQueue;
 
 // a)
-void SinitQueue (SQueue q) 
-{
+void SinitQueue (SQueue q)  {
     q->length = 0;
     q->front = 0;
 }
 
 // b)
-int SisEmptyQ (SQueue q)
-{
+int SisEmptyQ (SQueue q) {
     return (q->length == 0);
 }
 
 // c)
-int Senqueue (SQueue q, int x)
-{
+int Senqueue (SQueue q, int x) {
     int p; 
 
     if (q->length == Max)
         return 1;
 
-    else
-    {
+    else {
         p = (q->front + q->length) % Max;
         q->values[p] = x;
         q->length++;
@@ -102,8 +93,7 @@ int Senqueue (SQueue q, int x)
 }
 
 // d) 
-int Sdequeue (SQueue q, int *x) 
-{
+int Sdequeue (SQueue q, int *x) {
     if (q->length == 0)
         return 1;
 
@@ -115,8 +105,7 @@ int Sdequeue (SQueue q, int *x)
 }
 
 // e)
-int Sfront(SQueue q, int *x) 
-{
+int Sfront(SQueue q, int *x) {
     if (q->length == 0)
         return 1;
 

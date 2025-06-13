@@ -1,18 +1,17 @@
-#include <stdio.h> 
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
 
 /*--------------------------------------- Ficha 8 ----------------------------------------*/
 
-typedef struct slist 
-{
+typedef struct slist  {
     int valor;
     struct slist * prox;
 } * LInt;
 
-LInt newLInt (int x, LInt xs) 
-{
+LInt newLInt (int x, LInt xs)  {
     LInt r = malloc (sizeof(struct slist));
-        if (r!=NULL) 
-        {
+        if (r!=NULL) {
             r->valor = x; r->prox = xs;
         }
 
@@ -25,14 +24,12 @@ LInt newLInt (int x, LInt xs)
 typedef LInt Stack;
 
 // a)
-void initStack (Stack *s)
-{
+void initStack (Stack *s) {
     *s = NULL;
 }
 
 // b)
-int SisEmpty (Stack s)
-{
+int SisEmpty (Stack s) {
     if (s == NULL)
         return 1;
 
@@ -41,10 +38,8 @@ int SisEmpty (Stack s)
 }
 
 // c)
-int push (Stack *s, int x)
-{
-    if (*s == NULL)
-    {
+int push (Stack *s, int x) {
+    if (*s == NULL) {
         Stack novo = malloc(sizeof(struct slist));
         if (novo == NULL) return -1;
         novo->valor = x;
@@ -62,8 +57,7 @@ int push (Stack *s, int x)
 }
 
 // d)
-int pop (Stack *s, int *x)
-{
+int pop (Stack *s, int *x) {
     if (*s == NULL) 
         return -1;
 
@@ -76,8 +70,7 @@ int pop (Stack *s, int *x)
 }
 
 // e)
-int top (Stack s, int *x)
-{
+int top (Stack s, int *x) {
     if (s == NULL)
         return -1;
 
@@ -88,8 +81,7 @@ int top (Stack s, int *x)
 
 // Exercicio 2
 
-typedef struct 
-{
+typedef struct {
     LInt inicio,fim;
 } Queue;
 

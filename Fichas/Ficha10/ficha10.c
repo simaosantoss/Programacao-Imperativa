@@ -1,10 +1,10 @@
-#include <stdio.h> 
-
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
 
 /*--------------------------------------- Ficha 10 ---------------------------------------*/
 
-typedef struct nodo 
-{
+typedef struct nodo {
     int valor;
     struct nodo *esq, *dir;
 } * ABin;
@@ -12,8 +12,7 @@ typedef struct nodo
 // Exercicio 1
 
 // a)
-ABin removeMenor (ABin *a)
-{
+ABin removeMenor (ABin *a) {
     ABin res = *a; 
 
     if (*a == NULL)

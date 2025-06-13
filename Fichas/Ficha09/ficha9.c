@@ -1,19 +1,17 @@
-#include <stdio.h> 
-
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
 
 /*--------------------------------------- Ficha 9 ----------------------------------------*/
 
-typedef struct nodo 
-{
+typedef struct nodo {
 int valor;
 struct nodo *esq, *dir;
 } * ABin;
 
-ABin newABin (int r, ABin e, ABin d) 
-{
+ABin newABin (int r, ABin e, ABin d) {
 ABin a = malloc (sizeof(struct nodo));
-        if (a!=NULL) 
-        {
+        if (a!=NULL) {
             a->valor = r; a->esq = e; a->dir = d;
         }
 return a;
@@ -22,13 +20,11 @@ return a;
 // Exercicio 1
 
 // a)
-int max (int a, int b)
-{
+int max (int a, int b) {
     return (a > b) ? a : b;
 }
 
-int altura (ABin a)
-{
+int altura (ABin a) {
     if (a == NULL)
         return 0;
 
@@ -37,8 +33,7 @@ int altura (ABin a)
 }
 
 // b)
-int nFolhas (ABin a)
-{
+int nFolhas (ABin a) {
     if (a == NULL)
         return 0;
 
@@ -49,8 +44,7 @@ int nFolhas (ABin a)
 }
 
 // c)
-ABin maisEsquerda (ABin a)
-{
+ABin maisEsquerda (ABin a) {
     if (a == NULL)
         return NULL;
 
@@ -61,16 +55,14 @@ ABin maisEsquerda (ABin a)
 }
 
 // d)
-void imprimeNivel (ABin a, int l)
-{
+void imprimeNivel (ABin a, int l) {
     if (a == NULL)  // Se a árvore for vazia, return
         return;
 
     if (l == 0)
         printf("%d ", a->valor);
         
-    else
-    {
+    else {
         imprimeNivel (a->esq, l - 1);
         imprimeNivel (a->dir, l - 1);
     }
@@ -90,8 +82,7 @@ int procuraE (ABin a, int e) {
 }
 
 // extra
-int maiorFolha (ABin a)
-{
+int maiorFolha (ABin a) {
     // Assume que a != NULL (árvore não vazia)
     if (a->esq == NULL && a->dir == NULL)
         return a->valor;  // é folha
@@ -104,10 +95,8 @@ int maiorFolha (ABin a)
 }
 
 // extra (está nas 50 questões)
-void freeABin (ABin a) 
-{
-    if (a != NULL)
-    {
+void freeABin (ABin a) {
+    if (a != NULL) {
         freeABin(a->esq);
         freeABin(a->dir);
         free(a);
@@ -117,8 +106,7 @@ void freeABin (ABin a)
 // Exercicio 2
 
 // f)
-struct nodo *procura (ABin a, int x)
-{
+struct nodo *procura (ABin a, int x) {
     if (a == NULL)
         return NULL;
 
@@ -135,16 +123,14 @@ struct nodo *procura (ABin a, int x)
 }
 
 // g)
-int nivel (ABin a, int x)
-{
+int nivel (ABin a, int x) {
     if (a == NULL)
         return -1; // a é vazia
 
     if (a->valor == x)
         return 0; // o valor está no nivel 0
 
-    if (a->valor > x)
-    {
+    if (a->valor > x) {
         int resultado = nivel (a->esq, x);
         if (resultado == -1)
             return -1;
@@ -152,8 +138,7 @@ int nivel (ABin a, int x)
             return 1 + resultado;
     }
 
-    if (a->valor < x)
-    {
+    if (a->valor < x) {
         int resultado = nivel (a->dir, x);
         if (resultado == -1)
             return -1;
@@ -165,8 +150,7 @@ int nivel (ABin a, int x)
 }
 
 // h)
-void imprimeAte (ABin a, int x) 
-{
+void imprimeAte (ABin a, int x) {
     if (a == NULL)
         return;
 
@@ -177,8 +161,7 @@ void imprimeAte (ABin a, int x)
     else if (a->valor > x)
         imprimeAte (a->esq, x);
 
-    else
-    {
+    else {
         imprimeAte (a->esq, x);
         printf("%d ", a->valor);
         imprimeAte(a->dir, x);
@@ -186,8 +169,7 @@ void imprimeAte (ABin a, int x)
 }
 
 // extra (quantos elementos de uma árvore (de procura) são iguais a x)
-int quantos (ABin a, int e) 
-{
+int quantos (ABin a, int e)  {
     if (a == NULL) return 0;
 
     if (a->valor == e) return 1 + quantos(a->esq, e) + quantos(a->dir, e);
