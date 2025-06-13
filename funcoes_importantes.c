@@ -1,6 +1,12 @@
 #include <stdio.h> 
 #include <string.h> 
 
+// É necessário saber percorrer listas ligadas bem como adicionar ou retirar nós
+// É necessário saber percorrer árvores e usar recursividade
+
+/*---------------------------------------------------------------------------------*/
+// Algoritmos que dão jeito saber nos testes 
+
 // iSort (dá mais pontos que um buble sort mas menos que um merge sort ou quick sort)
 
 void insertionSort(int arr[], int n) {
@@ -26,7 +32,7 @@ void swap (int *a, int *b)
     *b = tmp;
 }
 
-// Quick Sort a mais fácil de decorar entre merge e quick (dão os mesmos pontos) -> a minha preferida 
+// Quick Sort a mais fácil de perceber entre merge e quick (dão os mesmos pontos) -> a minha preferida é esta
 
 typedef struct {
     int naoImporta, oquequeroordernar;
